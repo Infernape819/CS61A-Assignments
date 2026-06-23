@@ -22,6 +22,15 @@ def roll_dice(num_rolls, dice=six_sided):
     assert num_rolls > 0, 'Must roll at least once.'
     # BEGIN PROBLEM 1
     "*** YOUR CODE HERE ***"
+    total = 0
+    for i in range(num_rolls):
+        result = dice()
+        if result == 1:
+            return 1
+    total += result
+    return total
+
+
     # END PROBLEM 1
 
 
@@ -34,6 +43,12 @@ def boar_brawl(player_score, opponent_score):
     """
     # BEGIN PROBLEM 2
     "*** YOUR CODE HERE ***"
+    opponent_tens = opponent_score // 10 % 10
+    player_ones = player_score % 10
+    result = abs(opponent_tens - player_ones) * 3
+    if result == 0:
+        return 1
+    return result
     # END PROBLEM 2
 
 
@@ -52,6 +67,11 @@ def take_turn(num_rolls, player_score, opponent_score, dice=six_sided):
     assert num_rolls <= 10, 'Cannot roll more than 10 dice.'
     # BEGIN PROBLEM 3
     "*** YOUR CODE HERE ***"
+    if num_rolls == 0:
+        return boar_brawl(player_score, opponent_score)
+    else:
+        return roll_dice(num_rolls, dice)
+
     # END PROBLEM 3
 
 
@@ -77,21 +97,26 @@ def num_factors(n):
     """Return the number of factors of N, including 1 and N itself."""
     # BEGIN PROBLEM 4
     "*** YOUR CODE HERE ***"
+    result = []
+    for i in range(1, n + 1):
+        if n % i == 0:
+            result.append(i)
+    return len(result)
     # END PROBLEM 4
 
 def sus_points(score):
     """Return the new score of a player taking into account the Sus Fuss rule."""
     # BEGIN PROBLEM 4
-    "*** YOUR CODE HERE ***"
+    
     # END PROBLEM 4
 
 def sus_update(num_rolls, player_score, opponent_score, dice=six_sided):
     """Return the total score of a player who starts their turn with
     PLAYER_SCORE and then rolls NUM_ROLLS DICE, *including* Sus Fuss.
     """
-    # BEGIN PROBLEM 4
+    # BEGIN PROBLEM 5
     "*** YOUR CODE HERE ***"
-    # END PROBLEM 4
+    # END PROBLEM 5
 
 
 def always_roll_5(score, opponent_score):
