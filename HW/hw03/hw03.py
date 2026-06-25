@@ -25,6 +25,18 @@ def num_eights(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    if len(str(n)) != 1 and n%10 == 8:
+        return 1 + num_eights(n//10)
+    elif len(str(n)) != 1 and n%10 != 8:
+        return 0 + num_eights(n//10)
+    else:
+        return 1 if n == 8 else 0
+# 更好的方案
+def num_eights(n):
+    if n == 0:
+        return 0
+    return (1 if n % 10 == 8 else 0) + num_eights(n // 10)
+
 
 
 def digit_distance(n):
@@ -47,30 +59,21 @@ def digit_distance(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    if len(str(n)) == 1:
+        return 0
+    else:
+        return abs(int(str(n)[0]) - int(str(n)[1]))  + digit_distance(int(str(n)[1:]))
+# 更好的方案
+def digit_distance(n):
+    if n < 10:                    # 基例：只有一位，没有"相邻"
+        return 0
+    last = n % 10                 # 最后一位
+    second_last = (n // 10) % 10  # 倒数第二位
+    return abs(last - second_last) + digit_distance(n // 10)
 
 
-def interleaved_sum(n, odd_func, even_func):
-    """Compute the sum odd_func(1) + even_func(2) + odd_func(3) + ..., up
-    to n.
+e
 
-    >>> identity = lambda x: x
-    >>> square = lambda x: x * x
-    >>> triple = lambda x: x * 3
-    >>> interleaved_sum(5, identity, square) # 1   + 2*2 + 3   + 4*4 + 5
-    29
-    >>> interleaved_sum(5, square, identity) # 1*1 + 2   + 3*3 + 4   + 5*5
-    41
-    >>> interleaved_sum(4, triple, square)   # 1*3 + 2*2 + 3*3 + 4*4
-    32
-    >>> interleaved_sum(4, square, triple)   # 1*1 + 2*3 + 3*3 + 4*3
-    28
-    >>> from construct_check import check
-    >>> check(HW_SOURCE_FILE, 'interleaved_sum', ['While', 'For', 'Mod']) # ban loops and %
-    True
-    >>> check(HW_SOURCE_FILE, 'interleaved_sum', ['BitAnd', 'BitOr', 'BitXor']) # ban bitwise operators, don't worry about these if you don't know what they are
-    True
-    """
-    "*** YOUR CODE HERE ***"
 
 
 def next_smaller_dollar(bill):
