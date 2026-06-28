@@ -13,6 +13,15 @@ def shuffle(s):
     """
     assert len(s) % 2 == 0, 'len(seq) must be even'
     "*** YOUR CODE HERE ***"
+    result_list = []
+    for i in range(len(s)//2):
+        result_list.append(s[i])
+        result_list.append(s[i + len(s)//2])
+    return result_list
+
+
+
+
 
 
 def deep_map(f, s):
@@ -38,6 +47,11 @@ def deep_map(f, s):
     True
     """
     "*** YOUR CODE HERE ***"
+    for i in range(len(s)):
+        if type(s[i]) == list:
+            deep_map(f,s[i])
+        else:
+            s[i] = f(s[i]) 
 
 
 HW_SOURCE_FILE=__file__
@@ -106,6 +120,8 @@ def balanced(m):
     "*** YOUR CODE HERE ***"
 
 
+
+############################################################################################################
 def berry_finder(t):
     """Returns True if t contains a node with the value 'berry' and 
     False otherwise.
