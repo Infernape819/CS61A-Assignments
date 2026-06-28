@@ -1,3 +1,6 @@
+from HW.hw01.hw01 import largest_factor
+
+
 HW_SOURCE_FILE = __file__
 
 
@@ -72,7 +75,6 @@ def digit_distance(n):
     return abs(last - second_last) + digit_distance(n // 10)
 
 
-e
 
 
 
@@ -110,6 +112,38 @@ def count_dollars(total):
     True
     """
     "*** YOUR CODE HERE ***"
+    def count_dollars_helper(total, bills):
+        if total == 0:
+            return 1
+        elif total < 0:
+            return 0
+        elif bills is None:
+            return 0
+        elif bills == 1:
+            return 1
+        else:
+            if total >= bills:
+                return count_dollars_helper(total - bills, bills) + count_dollars_helper(total, next_smaller_dollar(bills))
+            else:
+                return count_dollars_helper(total, next_smaller_dollar(bills))
+    return count_dollars_helper(total, 100)
+
+
+def count_dollars(total):
+    bills = [1,5,10,20,50,100]
+    def count_dollars_helper(total, bills):
+        if total == 0:
+            return 1
+        elif total < 0:
+            return 0
+        elif len(bills) == 0:
+            return 0
+        else:
+            return count_dollars_helper(total - bills[0], bills) + count_dollars_helper(total, bills[1:])
+    return count_dollars_helper(total, bills)
+
+
+
 
 
 def next_larger_dollar(bill):
@@ -146,6 +180,30 @@ def count_dollars_upward(total):
     True
     """
     "*** YOUR CODE HERE ***"
+    def count_dollars_helper(total, bill):
+        if total == 0:
+            return 1
+        elif total < 0:
+            return 0
+        elif bill is None:
+            return 0
+        else:
+            if total >= bill:
+                return count_dollars_helper(total - bill, bill) + count_dollars_helper(total, next_larger_dollar(bill))
+            else:
+                return count_dollars_helper(total, next_larger_dollar(bill))
+    return count_dollars_helper(total, 1)
+
+
+
+
+
+
+
+
+
+
+
 
 
 def print_move(origin, destination):
@@ -181,6 +239,18 @@ def move_stack(n, start, end):
     """
     assert 1 <= start <= 3 and 1 <= end <= 3 and start != end, "Bad start/end"
     "*** YOUR CODE HERE ***"
+    if n == 1:
+        print_move(start, end)
+    else:
+        move_stack(n-1,start,6-start-end)
+        print_move(start,end)
+        move_stack(n-1,6-start-end,end)
+
+
+
+
+
+
 
 
 from operator import sub, mul
@@ -196,5 +266,5 @@ def make_anonymous_factorial():
     ...     ['Assign', 'AnnAssign', 'AugAssign', 'NamedExpr', 'FunctionDef', 'Recursion'])
     True
     """
-    return 'YOUR_EXPRESSION_HERE'
+    return lambda x : (lambda f,n : 1 if n == 1 else n*f(f,n-1))(lambda f,n : 1 if n == 1 else n*f(f,n-1),x)
 
